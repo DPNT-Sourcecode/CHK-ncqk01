@@ -62,14 +62,13 @@ def checkout(skus):
     group_discount = 0
 
     # find count of each item that is eligible for a group discount
-    group_item_counts = Counter(item for item in item_counts if item in GROUP_DISCOUNTS)
-    print('group_item_counts', group_item_counts)
-    print('sum', sum(group_item_counts.values()))
+    group_item_counts = Counter({item: count for item, count in item_counts.items() if item in GROUP_DISCOUNTS})
+
     # if there is more than 3 items in total that are eligible for group discount
     if (sum(group_item_counts.values()) >= 3):
         grouped_items = [char for char in skus if char in GROUP_DISCOUNTS]
         grouped_items_count = len(grouped_items) // 3 * 3
-        print('grouped_items_count', grouped_items_count)
+
         # find every possible combination of items that can be redemed using group discount
         ### note: this part can be improved the search space can be pruned, there are duplicated combinations here
         group_combinations = list(combinations(grouped_items, grouped_items_count))
@@ -102,8 +101,9 @@ def checkout(skus):
                     unaccounted_items -= item_count
                     total_cost += item_price
                     break
-    print('total_cost, group_discount', total_cost, group_discount)
+
     return total_cost - group_discount
+
 
 
 
