@@ -64,8 +64,8 @@ def checkout(skus):
     group_discount_items = [item for item in GROUP_DISCOUNTS if item in item_counts]
     group_item_counts = Counter(item for item in item_counts if item in GROUP_DISCOUNTS)
 
-    while (len(group_discount_items) >= 3):
-        discount_group = set()
+    discount_group = set()
+    while (sum(group_item_counts[item] for item in GROUP_DISCOUNTS) >= 3):
         for item in list(group_discount_items):
             if item in item_counts:
                 discount_group.add(item)
@@ -97,4 +97,5 @@ def checkout(skus):
 
     print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
+
 
