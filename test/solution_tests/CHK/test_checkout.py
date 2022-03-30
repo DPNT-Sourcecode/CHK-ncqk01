@@ -20,3 +20,7 @@ class TestCheckout:
         assert checkout_solution.checkout("ACDEE") == 165
         assert checkout_solution.checkout("ABBCDEE") == 195
         assert checkout_solution.checkout("ABBCDEEFFFFFF") == 235
+
+    def test_checkout_solution_with_group_discount(self):
+        assert checkout_solution.checkout("STY") == 45
+

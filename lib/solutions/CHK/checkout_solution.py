@@ -64,17 +64,19 @@ def checkout(skus):
     group_discount_items = [item for item in GROUP_DISCOUNTS if item in item_counts]
     # check if we have 3 items that are eligible for a group discount
     while (len(group_discount_items) >= 3):
-        discount_group = []
+        discount_group = set()
         for item in list(group_discount_items):
             if item in item_counts:
-                discount_group.append(item)
+                discount_group.add(item)
                 item_counts[item] -= 1
                 if item_counts[item] == 0:
                     del item_counts[item]
-
+                    group_discount_items.remove(item)
 
             if len(discount_group) == 3:
-                discount
+                regular_price = sum(ITEM_PRICES[item][1] for item in discount_group)
+                group_discount += regular_price - 45
+                discount_group = set()
 
 
     for item in special_offer_items:
@@ -83,7 +85,6 @@ def checkout(skus):
         offer_items_count = min(
             item_count // item_count_for_offer, item_counts[free_item]
         )
-        discount_price += ITEM_PRICES[free_item][-1]
         item_counts[free_item] -= offer_items_count
 
     for item, unaccounted_items in item_counts.items():
@@ -94,5 +95,6 @@ def checkout(skus):
                     total_cost += item_price
                     break
 
-    return total_cost
+    return total_cost - group_discount
+
 
