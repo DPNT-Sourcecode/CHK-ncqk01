@@ -65,15 +65,16 @@ def checkout(skus):
     if (sum(group_item_counts.values()) >= 3):
         grouped_items = [char for char in skus if char in GROUP_DISCOUNTS]
         grouped_items_count = len(grouped_items) // 3 * 3
-        group_combinations = combinations(grouped_items, grouped_items_count)
+        group_combinations = list(combinations(grouped_items, grouped_items_count))
         max_discount = (0, 0) # index, discount amount
         for i in range(len(group_combinations)):
             combination = group_combinations[i]
             combination_price = sum(ITEM_PRICES[item][-1][-1] for item in combination)
-            combination_discount = combination_price - ((grouped_items_count / 3) * 45)
+            combination_discount = combination_price - ((grouped_items_count // 3) * 45)
             if combination_discount > max_discount[1]:
-                max_discount = (i, combination_discount) 
+                max_discount = (i, combination_discount)
 
+        group_discount = max_discount[1]
 
 
     for item in special_offer_items:
@@ -94,5 +95,6 @@ def checkout(skus):
 
     print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
+
 
 
