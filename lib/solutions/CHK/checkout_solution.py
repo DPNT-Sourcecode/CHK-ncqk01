@@ -18,6 +18,9 @@ ITEM_PRICES = {
 
 
 def checkout(skus):
+    if skus == "":
+        return 0
+
     if (
         not skus
         or not isinstance(skus, str)
@@ -39,6 +42,7 @@ def checkout(skus):
             total_cost += count * ITEM_PRICES[item]
 
     return total_cost
+
 
 
 
