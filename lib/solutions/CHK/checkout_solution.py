@@ -103,10 +103,3 @@ def checkout(skus):
                     break
 
     return total_cost - group_discount
-
-
-
-
-
-
-
