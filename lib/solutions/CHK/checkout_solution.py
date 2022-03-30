@@ -45,6 +45,10 @@ SPECIAL_OFFERS = {
 GROUP_DISCOUNTS = ("Z", "S", "T", "Y", "X")
 
 
+def get_best_group_discount(grouped_items, discount=0):
+    return
+
+
 def checkout(skus):
     if skus == "":
         return 0
@@ -63,7 +67,6 @@ def checkout(skus):
 
     group_discount_items = [item for item in GROUP_DISCOUNTS if item in item_counts]
     group_item_counts = Counter(item for item in item_counts if item in GROUP_DISCOUNTS)
-
     discount_group = set()
     while (sum(group_item_counts[item] for item in GROUP_DISCOUNTS) >= 3):
         for item in list(group_discount_items):
@@ -97,5 +100,6 @@ def checkout(skus):
 
     print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
+
 
 
