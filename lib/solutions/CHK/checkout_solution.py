@@ -74,9 +74,13 @@ def checkout(skus):
                     group_discount_items.remove(item)
 
             if len(discount_group) == 3:
-                regular_price = sum(ITEM_PRICES[item][1] for item in discount_group)
+                regular_price = sum(ITEM_PRICES[item][0][1] for item in discount_group)
+                print('regular_price', regular_price)
                 group_discount += regular_price - 45
+                print('discount', group_discount)
                 discount_group = set()
+
+    print('discount', group_discount)
 
 
     for item in special_offer_items:
@@ -94,7 +98,8 @@ def checkout(skus):
                     unaccounted_items -= item_count
                     total_cost += item_price
                     break
-
+    print('total_cost', total_cost)
     return total_cost - group_discount
+
 
 
