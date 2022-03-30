@@ -24,6 +24,6 @@ class TestCheckout:
     def test_checkout_solution_with_group_discount(self):
         assert checkout_solution.checkout("STY") == 45
         assert checkout_solution.checkout("STYX") == 62
-
+        assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVW") == 795
 
 
