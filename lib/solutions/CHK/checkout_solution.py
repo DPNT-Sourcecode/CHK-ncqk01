@@ -61,12 +61,20 @@ def checkout(skus):
     total_cost = 0
     group_discount = 0
 
+    # find count of each item that is eligible for a group discount
     group_item_counts = Counter(item for item in item_counts if item in GROUP_DISCOUNTS)
+
+    # if there is more than 3 items in total that are eligible for group discount
     if (sum(group_item_counts.values()) >= 3):
         grouped_items = [char for char in skus if char in GROUP_DISCOUNTS]
         grouped_items_count = len(grouped_items) // 3 * 3
+
+        # find every possible combination of items that can be redemed using group discount
         group_combinations = list(combinations(grouped_items, grouped_items_count))
         max_discount = (0, 0) # index, discount amount
+
+        # iterate over all possible combinations and identify the one where the customer
+        # saves the most and choose redeem the group discount using that combination
         for i in range(len(group_combinations)):
             combination = group_combinations[i]
             combination_price = sum(ITEM_PRICES[item][-1][-1] for item in combination)
@@ -93,8 +101,8 @@ def checkout(skus):
                     total_cost += item_price
                     break
 
-    print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
+
 
 
 
