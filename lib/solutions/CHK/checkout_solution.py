@@ -45,8 +45,11 @@ SPECIAL_OFFERS = {
 GROUP_DISCOUNTS = ("Z", "S", "T", "Y", "X")
 
 
-def get_best_group_discount(grouped_items, discount=0):
-    return
+def grouped_items_combinations(grouped_items, current=[]):
+
+
+
+    
 
 
 def checkout(skus):
@@ -69,18 +72,22 @@ def checkout(skus):
     group_item_counts = Counter(item for item in item_counts if item in GROUP_DISCOUNTS)
     discount_group = set()
     while (sum(group_item_counts[item] for item in GROUP_DISCOUNTS) >= 3):
-        for item in list(group_discount_items):
-            if item in item_counts:
-                discount_group.add(item)
-                group_item_counts[item] -= 1
-                if group_item_counts[item] == 0:
-                    del group_item_counts[item]
-                    group_discount_items.remove(item)
+        group_combinations = []
+        input_str = ""
+        for char in group_item_counts.keys():
+            inputstr += char * group_item_counts[char]
+        # for item in list(group_discount_items):
+        #     if item in item_counts:
+        #         discount_group.add(item)
+        #         group_item_counts[item] -= 1
+        #         if group_item_counts[item] == 0:
+        #             del group_item_counts[item]
+        #             group_discount_items.remove(item)
 
-            if len(discount_group) == 3:
-                regular_price = sum(ITEM_PRICES[item][0][1] for item in discount_group)
-                group_discount += regular_price - 45
-                discount_group = set()
+        #     if len(discount_group) == 3:
+        #         regular_price = sum(ITEM_PRICES[item][0][1] for item in discount_group)
+        #         group_discount += regular_price - 45
+        #         discount_group = set()
 
     for item in special_offer_items:
         item_count = item_counts[item]
@@ -100,6 +107,3 @@ def checkout(skus):
 
     print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
-
-
-
