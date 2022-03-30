@@ -37,7 +37,6 @@ def checkout(skus):
         offer_items = min(item_count // item_count_for_offer, item_counts[free_item])
         print("offer_items", offer_items)
         item_counts[free_item] -= offer_items
-
     print("itemcounts", item_counts)
 
     for item, unaccounted_items in item_counts.items():
@@ -49,6 +48,7 @@ def checkout(skus):
                     break
 
     return total_cost
+
 
 
 
