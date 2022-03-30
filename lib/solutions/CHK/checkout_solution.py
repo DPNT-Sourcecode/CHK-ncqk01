@@ -1,5 +1,3 @@
-
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -7,19 +5,20 @@ from collections import Counter
 
 
 OFFERS = {
-    'A': (3, 130),
-    'B': (2, 45),
+    "A": (3, 130),
+    "B": (2, 45),
 }
 
 ITEM_PRICES = {
-    'A': 50,
-    'B': 30,
-    'C': 20,
-    'D': 15,
+    "A": 50,
+    "B": 30,
+    "C": 20,
+    "D": 15,
 }
 
+
 def checkout(skus):
-    if not skus:
+    if not skus or not isinstance(skus, str):
         return -1
 
     item_counts = Counter(skus)
@@ -29,11 +28,12 @@ def checkout(skus):
         if item in OFFERS and count >= OFFERS[item][0]:
             offer_count, offer_price = OFFERS[item]
             normal_items_count = count % offer_count
-            total_cost += (normal_items_count * ITEM_PRICES[item]) + ((count - normal_items_count) / offer_count) * offer_price
+            total_cost += (normal_items_count * ITEM_PRICES[item]) + (
+                (count - normal_items_count) / offer_count
+            ) * offer_price
         else:
             total_cost += count * ITEM_PRICES[item]
 
-
-
     return total_cost
+
 
