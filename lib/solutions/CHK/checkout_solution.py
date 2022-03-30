@@ -21,7 +21,7 @@ def checkout(skus):
     if (
         not skus
         or not isinstance(skus, str)
-        or any(sku for sku in skus not in ITEM_PRICES.keys())
+        or any(sku for sku in skus if sku not in ITEM_PRICES.keys())
     ):
         return -1
 
@@ -39,6 +39,7 @@ def checkout(skus):
             total_cost += count * ITEM_PRICES[item]
 
     return total_cost
+
 
 
 
