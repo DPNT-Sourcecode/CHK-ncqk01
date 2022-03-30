@@ -30,15 +30,17 @@ def checkout(skus):
     item_counts = Counter(skus)
     special_offer_items = [sku for sku in skus if sku in SPECIAL_OFFERS.keys()]
     total_cost = 0
-
+    print("special_offer_items", special_offer_items)
     for item in special_offer_items:
         item_count = item_counts[item]
         item_count_for_offer, free_item = SPECIAL_OFFERS[item]
-        offer_items = min(item_count // item_count_for_offer, item_counts[free_item])
-        print("offer_items", offer_items)
+        offer_items_count = min(
+            item_count // item_count_for_offer, item_counts[free_item]
+        )
+        print("offer_items", offer_items_count)
         print("itemcounts", item_counts)
         print("sku", skus)
-        item_counts[free_item] -= offer_items
+        item_counts[free_item] -= offer_items_count
     print("itemcounts", item_counts)
 
     for item, unaccounted_items in item_counts.items():
@@ -50,6 +52,7 @@ def checkout(skus):
                     break
 
     return total_cost
+
 
 
 
