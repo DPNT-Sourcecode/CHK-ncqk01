@@ -5,7 +5,7 @@ from collections import Counter
 
 
 OFFERS = {
-    "A": (3, 130),
+    "A": [(5, 200), (3, 130)],
     "B": (2, 45),
 }
 
@@ -14,7 +14,11 @@ ITEM_PRICES = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
+
+# items with special offers
+SPECIAL_OFFERS = ["E"]
 
 
 def checkout(skus):
@@ -42,3 +46,4 @@ def checkout(skus):
             total_cost += count * ITEM_PRICES[item]
 
     return total_cost
+
