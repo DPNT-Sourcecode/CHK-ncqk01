@@ -7,9 +7,9 @@ from collections import Counter
 ITEM_PRICES = {
     "A": [(5, 200), (3, 130), (1, 50)],
     "B": [(2, 45), (1, 30)],
-    "C": [(1, 30)],
-    'D': [(1, 15)],
-    'E': [(1, 40)],
+    "C": [(1, 20)],
+    "D": [(1, 15)],
+    "E": [(1, 40)],
 }
 
 # items with special offers
@@ -37,16 +37,14 @@ def checkout(skus):
         offer_items = min(item_count // item_count_for_offer, item_counts[free_item])
         item_counts[free_item] -= offer_items
 
-    for item, count in item_counts.items():
-        unaccounted_items = count
-
+    for item, unaccounted_items in item_counts.items():
         while unaccounted_items:
-            for offer in ITEM_PRICES[item]:
-                item_count, item_price = offer
+            for item_count, item_price in ITEM_PRICES[item]:
                 if unaccounted_items >= item_count:
                     unaccounted_items -= item_count
                     total_cost += item_price
                     break
 
     return total_cost
+
 
