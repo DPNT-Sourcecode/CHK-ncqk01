@@ -34,7 +34,13 @@ ITEM_PRICES = {
 }
 
 # items with special offers
-SPECIAL_OFFERS = {"E": (2, "B"), "F": (3, "F"), "U": (4, "U"), "N": (3, "M")}
+SPECIAL_OFFERS = {
+    "E": (2, "B"),
+    "F": (3, "F"),
+    "U": (4, "U"),
+    "N": (3, "M"),
+    "R": (3, "Q"),
+}
 
 
 def checkout(skus):
@@ -69,6 +75,7 @@ def checkout(skus):
                     break
 
     return total_cost
+
 
 
 
