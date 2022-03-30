@@ -4,17 +4,12 @@
 from collections import Counter
 
 
-OFFERS = {
-    "A": [(5, 200), (3, 130)],
-    "B": (2, 45),
-}
-
 ITEM_PRICES = {
-    "A": 50,
-    "B": 30,
-    "C": 20,
-    "D": 15,
-    "E": 40,
+    "A": [(5, 200), (3, 130), (1, 50)],
+    "B": [(2, 45), (1, 30)],
+    "C": [(1, 30)],
+    'D': [(1, 15)],
+    'E': [(1, 40)],
 }
 
 # items with special offers
@@ -46,14 +41,12 @@ def checkout(skus):
         unaccounted_items = count
 
         while unaccounted_items:
-
-            if item in OFFERS and count >= OFFERS[item][0]:
-                offer_count, offer_price = OFFERS[item]
-                normal_items_count = count % offer_count
-                total_cost += (normal_items_count * ITEM_PRICES[item]) + (
-                    (count - normal_items_count) / offer_count
-                ) * offer_price
-            else:
-                total_cost += count * ITEM_PRICES[item]
+            for offer in ITEM_PRICES[item]:
+                item_count, item_price = offer
+                if unaccounted_items >= item_count:
+                    unaccounted_items -= item_count
+                    total_cost += item_price
+                    break
 
     return total_cost
+
