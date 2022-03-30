@@ -42,6 +42,8 @@ SPECIAL_OFFERS = {
     "R": (3, "Q"),
 }
 
+GROUP_DISCOUNTS = ("S", "T", "X", "Y", "Z")
+
 
 def checkout(skus):
     if skus == "":
@@ -75,8 +77,3 @@ def checkout(skus):
                     break
 
     return total_cost
-
-
-
-
-
