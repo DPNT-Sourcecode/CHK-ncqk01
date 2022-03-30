@@ -25,5 +25,12 @@ class TestCheckout:
         assert checkout_solution.checkout("STY") == 45
         assert checkout_solution.checkout("STYX") == 62
         assert checkout_solution.checkout("STXSTX") == 90
+        assert checkout_solution.checkout("SSS") == 45
+
+        assert checkout_solution.checkout("SSSZ") == 65
+
+        assert checkout_solution.checkout("ZZZ") == 45
+
         assert checkout_solution.checkout("ABCDEFGHIJKLMNOPQRSTUVW") == 795
+
 
