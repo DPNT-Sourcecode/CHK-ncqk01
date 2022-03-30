@@ -48,11 +48,3 @@ def checkout(skus):
                     break
 
     return total_cost
-
-
-
-
-
-
-
-
