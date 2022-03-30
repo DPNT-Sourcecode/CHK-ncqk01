@@ -95,4 +95,6 @@ def checkout(skus):
                     total_cost += item_price
                     break
 
+    print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
+
