@@ -18,7 +18,9 @@ ITEM_PRICES = {
 }
 
 # items with special offers
-SPECIAL_OFFERS = ["E"]
+SPECIAL_OFFERS = {
+    'E': (2, 'B') 
+}
 
 
 def checkout(skus):
@@ -33,17 +35,28 @@ def checkout(skus):
         return -1
 
     item_counts = Counter(skus)
+    special_offer_items = [sku for sku in skus if sku in SPECIAL_OFFERS.keys()]
     total_cost = 0
 
+
+    if special_offer_items:
+
+
+
     for item, count in item_counts.items():
-        if item in OFFERS and count >= OFFERS[item][0]:
-            offer_count, offer_price = OFFERS[item]
-            normal_items_count = count % offer_count
-            total_cost += (normal_items_count * ITEM_PRICES[item]) + (
-                (count - normal_items_count) / offer_count
-            ) * offer_price
-        else:
-            total_cost += count * ITEM_PRICES[item]
+        unaccounted_items = count
+
+        while unaccounted_items:
+
+            if item in OFFERS and count >= OFFERS[item][0]:
+                offer_count, offer_price = OFFERS[item]
+                normal_items_count = count % offer_count
+                total_cost += (normal_items_count * ITEM_PRICES[item]) + (
+                    (count - normal_items_count) / offer_count
+                ) * offer_price
+            else:
+                total_cost += count * ITEM_PRICES[item]
 
     return total_cost
+
 
