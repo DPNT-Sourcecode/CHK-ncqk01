@@ -70,11 +70,12 @@ def checkout(skus):
         grouped_items_count = len(grouped_items) // 3 * 3
 
         # find every possible combination of items that can be redemed using group discount
+        ### note: this part can be improved the search space can be pruned, there are duplicated combinations here
         group_combinations = list(combinations(grouped_items, grouped_items_count))
-        max_discount = (0, 0) # index, discount amount
+        max_discount = (0, 0) # track index of combination and discount amount
 
         # iterate over all possible combinations and identify the one where the customer
-        # saves the most and choose redeem the group discount using that combination
+        # saves the most and redeem the group discount using that combination
         for i in range(len(group_combinations)):
             combination = group_combinations[i]
             combination_price = sum(ITEM_PRICES[item][-1][-1] for item in combination)
@@ -102,6 +103,7 @@ def checkout(skus):
                     break
 
     return total_cost - group_discount
+
 
 
 
