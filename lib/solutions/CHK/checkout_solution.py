@@ -2,6 +2,7 @@
 # skus = unicode string
 
 from collections import Counter
+from itertools import combinations
 
 
 ITEM_PRICES = {
@@ -44,13 +45,6 @@ SPECIAL_OFFERS = {
 
 GROUP_DISCOUNTS = ("Z", "S", "T", "Y", "X")
 
-
-
-
-
-    
-
-
 def checkout(skus):
     if skus == "":
         return 0
@@ -68,36 +62,27 @@ def checkout(skus):
     group_discount = 0
 
     group_item_counts = Counter(item for item in item_counts if item in GROUP_DISCOUNTS)
-    if (sum(group_item_counts[item] for item in GROUP_DISCOUNTS) >= 3):
-        group_combinations = []
-        input_str = ""
-        for char in group_item_counts.keys():
-            input_str += char * group_item_counts[char]
+    if (sum(group_item_counts.values()) >= 3):
+        grouped_items = [char for char in skus if char in GROUP_DISCOUNTS]
+        grouped_items_count = len(grouped_items) // 3 * 3
+        group_combinations = combinations(grouped_items, grouped_items_count)
+        max_discount = 0
+        for i in range(len(group_combinations)):
+            combintation = group_combinations[i]
+            combination_price = sum(ITEM_PRICES[item][-1][-1] for item in combintation)
+            combination_discount = combination_price - (grouped_items_count//3 * 45)
+            max_discount = max(max_discount, )
 
-        def grouped_items_combinations(grouped_items, combinations=[], current_combination=[]):
-            if len(combinations) == len(grouped_items) // 3:
-                group_combinations.append(combinations)
+        # def grouped_items_combinations(grouped_items, combinations, current_combination=[]):
+        #     if len(combinations) == len(grouped_items) // 3:
+        #         group_combinations.append(combinations)
 
-            for item in grouped_items:
-                current_combination.append()
+        #     for char in grouped_items:
+        #         current_combination.append(char)
+        #         grouped_items_combinations(grouped_items.remove(char), )
+        #         current_combination.remove(char)
 
-            for char in grouped_items:
-                current_combination.add(char)
-                
-            grouped_items_combinations(input_str)
-
-            # for item in list(group_discount_items):
-            #     if item in item_counts:
-            #         discount_group.add(item)
-            #         group_item_counts[item] -= 1
-            #         if group_item_counts[item] == 0:
-            #             del group_item_counts[item]
-            #             group_discount_items.remove(item)
-
-            #     if len(discount_group) == 3:
-            #         regular_price = sum(ITEM_PRICES[item][0][1] for item in discount_group)
-            #         group_discount += regular_price - 45
-            #         discount_group = set()
+        # grouped_items_combinations(grouped_items, group_combinations)
 
     for item in special_offer_items:
         item_count = item_counts[item]
@@ -117,3 +102,4 @@ def checkout(skus):
 
     print('totalcost, group discount',total_cost, group_discount)
     return total_cost - group_discount
+
